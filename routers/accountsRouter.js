@@ -82,4 +82,19 @@ router.put("/:id", (req, res) => {
     });
 });
 
+// Delete account
+router.delete("/:id", (req, res) => {
+  knex("accounts")
+    .where({ id: req.params.id })
+    .del()
+    .then(removed => {
+      res.status(200).json({ message: "successfully deleted" });
+    })
+    .catch(error => {
+      res.status(500).json({
+        errorMessage: "error deleting account"
+      });
+    });
+});
+
 module.exports = router;
